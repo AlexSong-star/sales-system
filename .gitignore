@@ -1,0 +1,9 @@
+node_modules/
+dist/
+__pycache__/
+*.pyc
+sales_system.db
+.env
+.DS_Store
+*.egg-info/
+.pytest_cache/

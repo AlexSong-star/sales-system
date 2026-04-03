@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 const api = axios.create({
-  // 空字符串 = 使用相对路径，前端代理到哪里就到哪里
-  baseURL: '',
-  timeout: 10000,
+  baseURL: 'https://sales-system-production-0a91.up.railway.app',
+  timeout: 15000,
+  headers: { 'Content-Type': 'application/json' }
 })
 
 // 仪表盘统计

@@ -1,8 +1,0 @@
-[build]
-builder = "dockerfile"
-
-[deploy]
-healthCheckPath = "/api/health"
-
-[settings]
-port = 8000

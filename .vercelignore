@@ -1,0 +1,9 @@
+node_modules
+.github
+docs
+*.md
+.gitignore
+vercel.json
+vercel.sh
+Dockerfile
+railway.toml

@@ -1,5 +1,11 @@
 {
+  "installCommand": "npm install",
+  "buildCommand": "cd code/frontend && npm install && npm run build",
+  "outputDirectory": "code/frontend/dist",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://sales-system-api.up.railway.app/api/$1" }
+    {
+      "source": "/api/(.*)",
+      "destination": "https://sales-system-backend.railway.app/api/$1"
+    }
   ]
 }

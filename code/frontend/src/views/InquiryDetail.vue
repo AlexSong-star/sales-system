@@ -1,8 +1,20 @@
 <template>
   <div class="layout">
 
+    <!-- 移动端顶栏 -->
+    <header class="mobile-header" style="display:none">
+      <button class="hamburger" @click="toggleDrawer" aria-label="打开菜单">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="mobile-logo">📋 询盘详情</div>
+      <div class="mobile-user">白</div>
+    </header>
+
+    <!-- 侧边栏遮罩 -->
+    <div class="sidebar-overlay" :class="{ show: drawerOpen }" @click="drawerOpen = false"></div>
+
     <!-- 侧边栏 -->
-    <aside class="sidebar">
+    <aside class="sidebar" :class="{ 'sidebar-open': drawerOpen }">
       <div class="logo">📊 <span>销售系统</span></div>
       <nav class="nav">
         <div class="nav-item" @click="$router.push('/dashboard')">
@@ -203,8 +215,10 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
+const drawerOpen = ref(false)
 const showReplyBox = ref(false)
 const showStatusBox = ref(false)
+const toggleDrawer = () => { drawerOpen.value = !drawerOpen.value }
 const replyContent = ref('')
 const newStatus = ref('')
 
@@ -515,3 +529,59 @@ body{
 .btn-danger:hover{background:#FEE2E2}
 .btn-sm{padding:4px 10px;font-size:11px}
 </style>
+
+/* =============================================
+   移动端适配 — 断点 768px
+   InquiryDetail 复用 Dashboard 的 mobile 机制
+   ============================================= */
+@media (max-width: 768px) {
+  /* 移动端顶栏 */
+  .layout { position: relative; padding-top: 56px; }
+  .mobile-header {
+    display: flex !important;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    height: 56px; background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+    align-items: center; justify-content: space-between;
+    box-shadow: var(--shadow-sm);
+  }
+  .mobile-header .mobile-logo {
+    font-size: 15px; font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-h);
+  }
+  .mobile-header .mobile-user {
+    width: 32px; height: 32px; background: var(--primary); color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 12px;
+  }
+  .hamburger {
+    width: 36px; height: 36px; background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    gap: 5px; padding: 4px; border-radius: 6px;
+  }
+  .hamburger:hover { background: #F3F4F6; }
+  .hamburger span { display: block; width: 20px; height: 2px; background: #374151; border-radius: 2px; }
+  .sidebar-overlay {
+    display: block; position: fixed; inset: 0; z-index: 299;
+    background: rgba(0,0,0,0.4); opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .sidebar-overlay.show { opacity: 1; pointer-events: auto; }
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 300;
+    transform: translateX(-100%); width: 240px;
+    box-shadow: var(--shadow-lg); transition: transform 0.2s;
+  }
+  .sidebar.sidebar-open { transform: translateX(0); }
+  /* 隐藏桌面端顶栏 */
+  .topbar { display: none !important; }
+  /* 内容区调整 */
+  .content { padding: 12px !important; flex-direction: column !important; gap: 12px !important; }
+  .detail-main, .detail-side { width: 100% !important; flex: none !important; }
+  .detail-side { min-width: 0 !important; }
+  /* 表单移动端 */
+  .detail-form { padding: 12px !important; }
+  .form-row { flex-direction: column !important; gap: 8px !important; }
+  .form-group { min-width: 0 !important; }
+  .form-actions { flex-wrap: wrap !important; justify-content: flex-start !important; }
+}

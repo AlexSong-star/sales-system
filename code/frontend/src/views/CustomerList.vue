@@ -1,8 +1,20 @@
 <template>
   <div class="layout">
 
+    <!-- 移动端顶栏 -->
+    <header class="mobile-header" style="display:none">
+      <button class="hamburger" @click="drawerOpen = !drawerOpen" aria-label="打开菜单">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="mobile-logo">👥 客户管理</div>
+      <div class="mobile-user">白</div>
+    </header>
+
+    <!-- 遮罩 -->
+    <div class="sidebar-overlay" :class="{ show: drawerOpen }" @click="drawerOpen = false"></div>
+
     <!-- 侧边栏 -->
-    <aside class="sidebar">
+    <aside class="sidebar" :class="{ 'sidebar-open': drawerOpen }">
       <div class="logo">📊 <span>销售系统</span></div>
       <nav class="nav">
         <div class="nav-item" @click="$router.push('/dashboard')">
@@ -209,6 +221,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
+const drawerOpen = ref(false)
 const searchKw = ref('')
 const fLevel = ref('')
 const fStatus = ref('')
@@ -457,3 +470,24 @@ body{font-family:'DM Sans','Noto Sans SC',system-ui,sans-serif;background:var(--
 .ie-summary{font-size:11px;color:var(--text-c);margin-bottom:4px;line-height:1.5}
 .ie-action{font-size:11px;color:var(--primary);font-weight:600}
 </style>
+
+/* =============================================
+   移动端适配 — 断点 768px
+   ============================================= */
+@media (max-width: 768px) {
+  .mobile-header { display: flex !important; position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 56px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 16px; align-items: center; justify-content: space-between; box-shadow: var(--shadow-sm); }
+  .mobile-logo { font-size: 15px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-h); }
+  .mobile-user { width: 32px; height: 32px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; }
+  .hamburger { width: 36px; height: 36px; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; padding: 4px; border-radius: 6px; }
+  .hamburger:hover { background: #F3F4F6; }
+  .hamburger span { display: block; width: 20px; height: 2px; background: #374151; border-radius: 2px; }
+  .sidebar-overlay { display: block; position: fixed; inset: 0; z-index: 299; background: rgba(0,0,0,0.4); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+  .sidebar-overlay.show { opacity: 1; pointer-events: auto; }
+  .sidebar { position: fixed; top: 0; left: 0; bottom: 0; z-index: 300; width: 240px; transform: translateX(-100%); box-shadow: var(--shadow-lg); transition: transform 0.2s; }
+  .sidebar.sidebar-open { transform: translateX(0); }
+  .layout { padding-top: 56px; }
+  .topbar { display: none !important; }
+  .content { padding: 12px !important; }
+  .ie-table-wrapper { overflow-x: auto; }
+  .filters { flex-direction: column; }
+}

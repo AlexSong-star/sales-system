@@ -4,22 +4,38 @@
 
 ---
 
-## 项目概述
+## 项目架构
 
-为外贸数字团队搭建销售管理系统，覆盖从客户询盘到成交的全流程数字化管理。分多期完成，第一期聚焦销售环节功能。
+| 组成部分 | 技术方案 | 访问地址 |
+|---------|---------|---------|
+| 前端（静态） | Vue3 + Vite + Element Plus + ECharts | https://alexsong-star.github.io/sales-system/ |
+| 后端 API | FastAPI + SQLAlchemy + Railway | https://sales-system-production-0a91.up.railway.app |
 
 ## 目录结构
 
 ```
 sales-system/
-├── README.md              # 项目说明
+├── .github/workflows/deploy.yml  # GitHub Pages 自动部署
+├── code/
+│   ├── frontend/                  # Vue3 前端
+│   └── backend/                  # FastAPI 后端（独立部署）
 ├── docs/
-│   ├── requirement/       # 需求文档
-│   │   └── README.md      # 需求说明
-│   └── technical/         # 技术文档
-│       └── README.md      # 技术说明
-└── code/                  # 项目代码（待开发）
+│   ├── requirement/               # 需求文档
+│   └── technical/                 # 技术文档
+└── README.md
 ```
+
+## 部署说明
+
+### 前端部署
+- 推送 master 分支自动触发 GitHub Actions
+- 构建产物部署到 `gh-pages` 分支
+- 访问地址：https://alexsong-star.github.io/sales-system/
+
+### 后端部署
+- 后端部署在 Railway 平台
+- 直接调用 Railway URL 提供 API 服务
+- CORS 已全开放
 
 ## 团队成员分工
 
@@ -32,20 +48,6 @@ sales-system/
 | 李大嘴 | 协同用户 | 跟单环节衔接 |
 | 郭芙蓉 | 数据使用者 | 销售数据分析师 |
 
-## 当前状态
-
-- [x] 项目目录创建
-- [x] 需求文档框架
-- [x] 技术文档框架
-- [ ] 需求收集与确认
-- [ ] 架构设计细化
-- [ ] 数据库设计
-- [ ] 开发启动
-
-## 下一步
-
-等待强哥确认需求后，启动技术架构设计。
-
 ---
 
-_最后更新：2026-03-31_
+_最后更新：2026-04-03_

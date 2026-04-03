@@ -1,9 +1,7 @@
 [build]
-builder = "nixpacks"
-command = "cd code/backend && /tmp/openclaw-env/bin/pip install --python /tmp/openclaw-env/bin/python -r requirements.txt && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+builder = "dockerfile"
 
 [deploy]
-startCommand = "cd code/backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
 healthCheckPath = "/api/health"
 
 [settings]

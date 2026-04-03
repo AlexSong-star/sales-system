@@ -573,6 +573,21 @@ body{
     box-shadow: var(--shadow-lg); transition: transform 0.2s;
   }
   .sidebar.sidebar-open { transform: translateX(0); }
+  /* 移动端侧边栏：白色背景 */
+  .sidebar {
+    background: #FFFFFF !important;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.12) !important;
+  }
+  .sidebar .logo {
+    color: #111827 !important;
+    border-bottom-color: #E5E7EB !important;
+  }
+  .sidebar .logo span { color: #374151 !important; }
+  .nav-item { color: #374151 !important; }
+  .nav-item:hover { color: #2563EB !important; background: #EEF2FF !important; }
+  .nav-item.active { color: #2563EB !important; background: #EEF2FF !important; }
+  .nav-item.disabled { color: #9CA3AF !important; }
+
   /* 隐藏桌面端顶栏 */
   .topbar { display: none !important; }
   /* 内容区调整 */

@@ -444,6 +444,21 @@ body{font-family:'DM Sans','Noto Sans SC',system-ui,sans-serif;background:var(--
     box-shadow: var(--shadow-lg);
   }
   .sidebar.sidebar-open { transform: translateX(0); }
+  /* 移动端侧边栏：白色背景 */
+  .sidebar {
+    background: #FFFFFF !important;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.12) !important;
+  }
+  .sidebar .logo {
+    color: #111827 !important;
+    border-bottom-color: #E5E7EB !important;
+  }
+  .sidebar .logo span { color: #374151 !important; }
+  .nav-item { color: #374151 !important; }
+  .nav-item:hover { color: #2563EB !important; background: #EEF2FF !important; }
+  .nav-item.active { color: #2563EB !important; background: #EEF2FF !important; }
+  .nav-item.disabled { color: #9CA3AF !important; }
+
 
   /* 3. 主内容加了顶部偏移 */
   .main { padding-top: 56px; }

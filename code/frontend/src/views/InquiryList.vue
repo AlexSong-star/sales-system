@@ -31,7 +31,7 @@
 
     <!-- 主内容 -->
     <div class="main">
-      <header class="topbar desktop-topbar">
+      <header class="topbar">
         <div class="topbar-left">
           <div class="page-title">📋 询盘列表</div>
           <div class="page-sub">管理所有渠道的询盘</div>
@@ -115,23 +115,10 @@ const filtered = computed(() =>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html,body,#app{height:100%;overflow:hidden}
 body{font-family:'DM Sans','Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--text-h);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
-.layout{display:flex;height:100vh;overflow:hidden;width:100vw}
 
-/* 移动端顶栏 */
-.mobile-header{
-  display:none;position:fixed;top:0;left:0;right:0;z-index:200;
-  height:56px;background:var(--surface);border-bottom:1px solid var(--border);
-  padding:0 16px;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);
-}
-.mobile-logo{font-size:15px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;color:var(--text-h)}
-.mobile-user{width:32px;height:32px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px}
-.hamburger{width:36px;height:36px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;padding:4px;border-radius:6px}
-.hamburger:hover{background:#F3F4F6}
-.hamburger span{display:block;width:20px;height:2px;background:#374151;border-radius:2px}
-.sidebar-overlay{display:none;position:fixed;inset:0;z-index:299;background:rgba(0,0,0,0.4);opacity:0;transition:opacity var(--transition)}
-.sidebar-overlay.show{display:block;opacity:1}
-.sidebar{width:180px;background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;transition:transform var(--transition);z-index:300}
-.sidebar:not(.sidebar-open){transform:translateX(-100%);position:fixed;top:0;left:0;bottom:0}
+/* ========== 整体布局（桌面端） ========== */
+.layout{display:flex;height:100vh;overflow:hidden;width:100vw}
+.sidebar{width:180px;background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;z-index:10}
 .logo{display:flex;align-items:center;gap:10px;padding:0 20px;height:64px;border-bottom:1px solid rgba(255,255,255,0.06);color:#fff;font-size:18px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700}
 .logo span{font-size:13px;font-weight:700}
 .nav{display:flex;flex-direction:column;padding:12px 0;gap:2px}
@@ -165,12 +152,52 @@ body{font-family:'DM Sans','Noto Sans SC',system-ui,sans-serif;background:var(--
 .st-invalid{background:#F3F4F6;color:#9CA3AF}
 .empty{text-align:center;color:var(--text-f);padding:40px;font-size:14px}
 
+/* ========== 移动端顶栏（默认隐藏） ========== */
+.mobile-header{
+  display:none;position:fixed;top:0;left:0;right:0;z-index:200;
+  height:56px;background:var(--surface);border-bottom:1px solid var(--border);
+  padding:0 16px;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);
+}
+.mobile-logo{font-size:15px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;color:var(--text-h)}
+.mobile-user{width:32px;height:32px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px}
+.hamburger{width:36px;height:36px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;padding:4px;border-radius:6px}
+.hamburger:hover{background:#F3F4F6}
+.hamburger span{display:block;width:20px;height:2px;background:#374151;border-radius:2px}
+.sidebar-overlay{display:none;position:fixed;inset:0;z-index:299;background:rgba(0,0,0,0.4);opacity:0;transition:opacity var(--transition)}
+.sidebar-overlay.show{display:block;opacity:1}
+
+/* =============================================
+   移动端适配 — 768px 及以下
+   ============================================= */
 @media (max-width: 768px) {
+  /* 显示移动端顶栏 */
   .mobile-header { display: flex !important; }
+
+  /* 侧边栏：抽屉式 + 白色背景 */
+  .sidebar {
+    position: fixed !important;
+    top: 0; left: 0; bottom: 0;
+    z-index: 300;
+    width: 240px;
+    transform: translateX(-100%);
+    transition: transform var(--transition);
+    background: #FFFFFF !important;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.12) !important;
+  }
+  .sidebar.sidebar-open { transform: translateX(0) !important; }
+  .sidebar .logo { color: #111827 !important; border-bottom-color: #E5E7EB !important; }
+  .sidebar .logo span { color: #374151 !important; }
+  .sidebar .nav-item { color: #374151 !important; }
+  .sidebar .nav-item:hover { color: #2563EB !important; background: #EEF2FF !important; }
+  .sidebar .nav-item.active { color: #2563EB !important; background: #EEF2FF !important; }
+
+  /* 主内容偏移 */
   .layout { padding-top: 56px; }
-  .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; transform: translateX(-100%); box-shadow: var(--shadow-lg); }
-  .sidebar.sidebar-open { transform: translateX(0); }
-  .desktop-topbar { display: none !important; }
+
+  /* 隐藏桌面端顶栏 */
+  .topbar { display: none !important; }
+
+  /* 内容区 */
   .content { padding: 12px; }
 }
 </style>

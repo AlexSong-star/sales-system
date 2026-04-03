@@ -5,7 +5,7 @@ import InquiryDetail from '../views/InquiryDetail.vue'
 import CustomerList from '../views/CustomerList.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/sales-system/'),
   routes: [
     { path: '/', redirect: '/dashboard' },
     { path: '/dashboard', component: Dashboard },
